@@ -154,6 +154,7 @@ services:
       - no-new-privileges:true
     networks:
       - insforge-network
+      - dokploy-network
 
   # Deno serverless runtime for edge functions
   deno:
