@@ -88,6 +88,14 @@ services:
       - insforge-logs:/insforge-logs
     security_opt:
       - no-new-privileges:true
+    labels:
+      - traefik.http.middlewares.insforge-ratelimit.ratelimit.average=600
+      - traefik.http.middlewares.insforge-ratelimit.ratelimit.burst=200
+      - traefik.http.middlewares.insforge-ratelimit.ratelimit.period=1m
+      - traefik.http.routers.shynt-ai-consulting-insforge-crma1c-37-websecure.middlewares=insforge-ratelimit 
+    networks:
+      - insforge-network
+      - dokploy-network  
 
   deno:
     image: ghcr.io/insforge/deno-runtime:latest
@@ -134,3 +142,9 @@ volumes:
     driver: local
   insforge-logs:
     driver: local
+
+networks:
+  insforge-network:
+    driver: bridge
+  dokploy-network:
+    external: true    
