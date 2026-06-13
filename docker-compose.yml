@@ -217,5 +217,7 @@ volumes:
     driver: local
 
 networks:
-  insforge-network:
+  default:
     driver: bridge
+  insforge-network:
+    external: true
